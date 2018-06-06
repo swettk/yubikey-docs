@@ -104,7 +104,7 @@ Paste the following [text](https://stackoverflow.com/questions/2500436/how-does-
 
 Generate a new key with GPG, selecting RSA (sign only), the appropriate keysize (4096), and no expiration date. The following procedure will also prompt to create and confirm a unique passphrase. 
 
-    $ gpg --gen-key
+    $ gpg --full-generate-key
 
     Please select what kind of key you want:
        (1) RSA and RSA (default)
