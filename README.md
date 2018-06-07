@@ -157,10 +157,10 @@ Generate a new key with GPG, selecting RSA (sign only), the appropriate keysize 
 Keep this passphrase handy as you'll need it throughout.
 
 ## Save Key ID
-
+note the key id in the output and use below
 Export the key ID as a [variable](https://stackoverflow.com/questions/1158091/defining-a-variable-with-or-without-export/1158231#1158231) for use throughout the configuration process:
 
-    $ KEYID=0xF932D46EFBBF395C
+    $ export KEYID=0xF932D46EFBBF395C
 
 ## Add a photo
 
@@ -216,7 +216,7 @@ Create a way to revoke your keys in case of loss or compromise, an explicit reas
       3 = Key is no longer used
       Q = Cancel
     (Probably you want to select 1 here)
-    Your decision? 1
+    Your decision? 0
     Enter an optional description; end it with an empty line:
     >
     Reason for revocation: Key has been compromised
@@ -284,7 +284,7 @@ First, create a [signing key](https://stackoverflow.com/questions/5421107/can-rs
        (8) RSA (set your own capabilities)
     Your selection? 4
     RSA keys may be between 1024 and 4096 bits long.
-    What keysize do you want? (2048)
+    What keysize do you want? (4096)
     Requested keysize is 2048 bits
     Please specify how long the key should be valid.
              0 = key does not expire
@@ -484,19 +484,6 @@ Insert the USB thumbdrive you were provided by WIW and backup the temporary GPG 
     /var/folders/m_/t3y0ptl111zd0kbs6590gw_40000gn/T/tmp.LXjFxkDy/secring.gpg -> /Volumes/WIW_USB_THUMBDRIVE/tmp.LXjFxkDy/secring.gpg
     /var/folders/m_/t3y0ptl111zd0kbs6590gw_40000gn/T/tmp.LXjFxkDy/sub.key -> /Volumes/WIW_USB_THUMBDRIVE/tmp.LXjFxkDy/sub.key
     /var/folders/m_/t3y0ptl111zd0kbs6590gw_40000gn/T/tmp.LXjFxkDy/trustdb.gpg -> /Volumes/WIW_USB_THUMBDRIVE/tmp.LXjFxkDy/trustdb.gpg
-
-## Configure YubiKey
-
-Plug in your YubiKey and configure it:
-
-    $ ykpersonalize -m82
-    Firmware version 4.2.7 Touch level 527 Program sequence 4
-
-    The USB mode will be set to: 0x82
-
-    Commit? (y/n) [n]: y
-
-> The -m option is the mode command. To see the different modes, enter ykpersonalize –help. Mode 82 (in hex) enables the YubiKey as a composite USB device (HID + CCID) and allows OTPs to be emitted while in use as a smart card.  Once you have changed the mode, you need to re-boot the YubiKey – so remove and re-insert it.
 
 https://www.yubico.com/2012/12/yubikey-neo-openpgp/
 
@@ -839,7 +826,7 @@ Save and quit:
 
 This file should be publicly shared:
 
-    $ gpg2 --armor --export firstname.lastname@wheniwork.com > firstname.lastname@wheniwork.com--master.asc
+    $ gpg --armor --export firstname.lastname@wheniwork.com > firstname.lastname@wheniwork.com--master.asc
 
 ## Back up the new exports
 
@@ -849,7 +836,7 @@ This file should be publicly shared:
 
 If all went well, you should now reboot or remove `$GNUPGHOME`.
 
-    $ unset $GNUPGHOME
+    $ unset GNUPGHOME
 
 # Using keys
 
@@ -1161,14 +1148,6 @@ You will be prompted to enter your PIN. Output:
 
 
 # Share your public keys
-
-Run the following clone command to get the gpg keys public repo.
-
-    git clone https://github.com/wheniwork/public_gpg_keys
-
-Add your key:
-
-    git 
 
 # Setup Git for signing
 
